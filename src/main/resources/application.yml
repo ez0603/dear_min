@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: local
+    group:
+      local: local, common, secret
+
+---
+
+client:
+  deploy-address: "localhost:3000"
+
+mybatis:
+  mapper-locations:
+    - /mappers/*.xml
