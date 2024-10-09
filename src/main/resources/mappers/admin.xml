@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.dearMin.repository.AdminMapper">
+    <resultMap id="AdminResultMap" type="com.project.dearMin.entity.account.Admin">
+        <id property="adminId" column="admin_id" />
+        <result property="adminName" column="admin_name" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="email" column="email" />
+        <result property="createDate" column="create_date" />
+        <result property="updateDate" column="update_date" />
+    </resultMap>
+
+    <insert id="saveAdmin"
+            parameterType="com.project.dearMin.entity.account.Admin"
+            keyProperty="adminId"
+            useGeneratedKeys="true"
+    >
+        insert into
+        admin_tb
+        values
+        (0, #{adminName}, #{username}, #{password}, #{email}, now(), now())
+    </insert>
+
+</mapper>
