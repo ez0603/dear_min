@@ -20,9 +20,27 @@
             useGeneratedKeys="true"
     >
         insert into
-        admin_tb
+            admin_tb
         values
-        (0, #{adminName}, #{username}, #{password}, #{email}, now(), now())
+            (0, #{adminName}, #{username}, #{password}, #{email}, now(), now())
     </insert>
+
+    <select id="findAdminByUsername"
+            parameterType="string"
+            resultMap="AdminResultMap"
+    >
+        select
+            admin_id,
+            admin_name,
+            username,
+            password,
+            email,
+            create_date,
+            update_date
+        from
+            admin_tb
+        where
+            username = #{username}
+    </select>
 
 </mapper>

@@ -46,8 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/send/**",
                         "/account/**",
                         "/public/**",
-                        "/admin/auth/signin",
-                        "/admin/auth/signup")
+                        "/admin/auth/signup", "/admin/auth/signin")
                 .permitAll()
                 .antMatchers("/account/admin/**").hasRole("ADMIN")
                 .antMatchers("/admin/**").hasRole("ADMIN")
