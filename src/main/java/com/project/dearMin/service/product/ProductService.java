@@ -1,9 +1,7 @@
 package com.project.dearMin.service.product;
 
-import com.project.dearMin.dto.product.request.AddProductCategoryReqDto;
-import com.project.dearMin.dto.product.request.AdminRegisterProductReqDto;
-import com.project.dearMin.dto.product.request.UpdateProductCategoryReqDto;
-import com.project.dearMin.dto.product.request.UpdateProductReqDto;
+import com.project.dearMin.dto.product.request.*;
+import com.project.dearMin.dto.product.response.OptionTitlesRespDto;
 import com.project.dearMin.dto.product.response.ProductDetailRespDto;
 import com.project.dearMin.dto.product.response.SearchProductRespDto;
 import com.project.dearMin.entity.product.Category;
@@ -130,4 +128,71 @@ public class ProductService {
     public int deleteProductCategory(int categoryId) {
         return productMapper.deleteProductCategory(categoryId);
     }
+
+    public List<SearchProductRespDto> getProductCategory(int categoryId) {
+        List<Product> products = productMapper.getProductCategory(categoryId);
+
+        return products.stream().map(Product::toSearchProductRespDto).collect(Collectors.toList());
+    }
+
+    public void insertOptionTitle(AddOptionTitleReqDto addOptionTitleReqDto) {
+        productMapper.saveOptionTitle(addOptionTitleReqDto.toEntity());
+    }
+
+    // 제품 옵션 타이틀 조회
+    @Transactional(rollbackFor = Exception.class)
+    public OptionTitlesRespDto getOptionTitles(int productId) {
+        List<OptionTitle> optionTitles = productMapper.getOptionTitleByproductId(productId);
+        OptionTitlesRespDto optionTitlesRespDto = new OptionTitlesRespDto();
+
+        List<Integer> optionTitleIds = new ArrayList<>();
+        List<String> optionTitleNames = new ArrayList<>();
+
+        for (OptionTitle optionTitle : optionTitles) {
+            optionTitleIds.add(optionTitle.getOptionTitleId());
+            optionTitleNames.add(optionTitle.getTitleName());
+        }
+
+        optionTitlesRespDto.setOptionTitlesId(optionTitleIds);
+        optionTitlesRespDto.setOptionTitleNames(optionTitleNames);
+
+        return optionTitlesRespDto;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public OptionTitlesRespDto getAllOptionTitles() {
+        List<OptionTitle> optionTitles = productMapper.getAllOptionTitles();
+        OptionTitlesRespDto optionTitlesRespDto = new OptionTitlesRespDto();
+
+        List<Integer> optionTitleIds = new ArrayList<>();
+        List<String> optionTitleNames = new ArrayList<>();
+
+        // 옵션 타이틀의 ID와 이름을 리스트에 추가
+        for (OptionTitle optionTitle : optionTitles) {
+            optionTitleIds.add(optionTitle.getOptionTitleId());
+            optionTitleNames.add(optionTitle.getTitleName());
+        }
+
+        optionTitlesRespDto.setOptionTitlesId(optionTitleIds);
+        optionTitlesRespDto.setOptionTitleNames(optionTitleNames);
+
+        return optionTitlesRespDto;
+    }
+
+    // 옵션 타이틀 수정
+    public void editOptionTitle(UpdateOptionTitleReqDto updateOptionTitleReqDto) {
+        productMapper.updateOptionTitle(updateOptionTitleReqDto.toEntity());
+    }
+
+    // 옵션 타이틀 삭제
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteOptionTitle(DeleteOptionTitleReqDto deleteOptionTitleReqDto) {
+        productMapper.deleteOptionTitle(deleteOptionTitleReqDto.toEntity());
+    }
+
+    // 옵션 이름 등록
+    public void insertOptionName(AddOptionNameReqDto addOptionNameReqDto) {
+        productMapper.saveOptionName(addOptionNameReqDto.toEntity());
+    }
+
 }

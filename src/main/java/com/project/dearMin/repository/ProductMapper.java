@@ -32,4 +32,15 @@ public interface ProductMapper {
     public int updateProductCategory(Category category);
 
     public int deleteProductCategory(int categoryId);
+
+    public List<Product> getProductCategory(@Param("categoryId") int categoryId);
+
+    List<OptionTitle> getOptionTitleByproductId(@Param("productId") int productId);
+
+    List<OptionTitle> getAllOptionTitles();
+
+    int updateOptionTitle(OptionTitle optionTitle);
+
+    int deleteOptionTitle(OptionTitle optionTitle);
+
 }

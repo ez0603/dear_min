@@ -138,4 +138,23 @@
         where
             category_id = #{categoryId}
     </delete>
+
+    <select id="getProductCategory" resultMap="ProductResultMap">
+        SELECT
+            pt.product_id,
+            pt.product_name,
+            pt.product_price,
+            pt.product_img,
+            pt.cost_price,
+            ct.category_id,
+            ct.category_name
+        FROM
+            product_tb pt
+            LEFT OUTER JOIN
+            category_tb ct
+        ON
+            ct.category_id = pt.category_id
+        where
+            pt.category_id = #{categoryId}
+    </select>
 </mapper>

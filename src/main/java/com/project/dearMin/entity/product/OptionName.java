@@ -17,6 +17,10 @@ public class OptionName {
     private int productId;
     private int optionTitleId;
     private String optionName;
+    private int optionPrice;
+    private int optionCount;
+    private String optionImg;
+    private int productQuantity;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 
