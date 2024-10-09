@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.dearMin.repository.ProductMapper">
+    <resultMap id="OptionTitleResultMap" type="com.project.dearMin.entity.product.OptionTitle">
+        <id property="optionTitleId" column="option_title_id" />
+        <result property="productId" column="product_id" />
+        <result property="titleName" column="title_name" />
+        <result property="createDate" column="create_date" />
+        <result property="updateDate" column="update_date" />
+    </resultMap>
+
+    <resultMap id="OptionNameResultMap" type="com.project.dearMin.entity.product.OptionName">
+        <id property="optionNameId" column="option_name_id" />
+        <result property="productId" column="product_id" />
+        <result property="optionName" column="option_name" />
+        <result property="createDate" column="create_date" />
+        <result property="updateDate" column="update_date" />
+        <association property="optionTitle" resultMap="OptionTitleResultMap" />
+    </resultMap>
+
+    <insert id="saveOptionTitle" parameterType="com.project.dearMin.entity.product.OptionTitle">
+        insert into
+            option_title_tb
+        values
+            (0, #{productId}, #{titleName}, now(), now())
+    </insert>
+
+    <select id="getOptionTitleByproductId" resultMap="OptionTitleResultMap">
+        select
+        *
+        from
+        option_title_tb
+        where
+        product_id = #{productId}
+    </select>
+
+    <update id="updateOptionTitle">
+        update
+        option_title_tb
+        set
+        product_id = #{productId},
+        title_name = #{titleName},
+        update_date = now()
+        where
+        option_title_id = #{optionTitleId}
+    </update>
+
+    <delete id="deleteOptionTitle">
+        delete
+        from option_title_tb
+        where
+        option_title_id = #{optionTitleId}
+    </delete>
+
+    <insert id="saveOptionName" parameterType="com.project.dearMin.entity.product.OptionName">
+        insert into
+        option_name_tb
+        values
+        (0,  #{productId}, #{optionTitleId}, #{optionName}, now(), now())
+    </insert>
+
+    <select id="getOptionsByMenuId" resultMap="OptionNameResultMap">
+        select
+        ont.product_id,
+        ott.option_title_id,
+        ott.title_name,
+        ont.option_name_id,
+        ont.option_name
+        from
+        option_name_tb ont
+        left outer join option_title_tb ott on(ott.option_title_id = ont.option_title_id)
+        where
+        ont.product_id = #{productId}
+    </select>
+
+    <update id="updateOptionName">
+        update
+        option_name_tb
+        set
+        option_name = #{optionName},
+        update_date = now()
+        where
+        option_name_id = #{optionNameId}
+        and option_title_id = #{optionTitleId}
+        and product_id = #{productId}
+    </update>
+
+</mapper>

@@ -64,5 +64,14 @@
             and email = #{email}
     </select>
 
+    <select id="findAccountByUserNameAndEmail" resultMap="AdminResultMap">
+        select
+            *
+        from
+            admin_tb
+        where
+            username = #{username}
+            and email = #{email}
+    </select>
 
 </mapper>
