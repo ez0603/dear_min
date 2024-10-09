@@ -4,6 +4,7 @@ import com.project.dearMin.aop.annotation.ValidAspect;
 import com.project.dearMin.dto.account.request.AdminSignupReqDto;
 import com.project.dearMin.service.admin.AdminAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,8 +32,12 @@ public class AdminAuthController {
 
     @PostMapping("/signin")
     public ResponseEntity<?> adminSignin(@RequestBody AdminSignupReqDto adminSignupReqDto) {
-        System.out.println(123);
-        return ResponseEntity.ok(adminAuthService.adminSignin(adminSignupReqDto));
+        try {
+            String token = adminAuthService.adminSignin(adminSignupReqDto);
+            return ResponseEntity.ok(token);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인에 실패했습니다.");
+        }
     }
 
 }

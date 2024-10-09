@@ -43,4 +43,26 @@
             username = #{username}
     </select>
 
+    <update id="modifyPassword"
+            parameterType="com.project.dearMin.entity.account.Admin">
+        update
+            admin_tb
+        set
+            password = #{password},
+            update_date = now()
+        where
+            admin_id = #{adminId}
+    </update>
+
+    <select id="findAccountByNameAndEmail" resultMap="AdminResultMap">
+        select
+            *
+        from
+            admin_tb
+        where
+            admin_name = #{adminName}
+            and email = #{email}
+    </select>
+
+
 </mapper>
