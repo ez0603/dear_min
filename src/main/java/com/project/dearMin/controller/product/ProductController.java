@@ -101,16 +101,16 @@ public class ProductController {
         productService.insertOptionName(addOptionNameReqDto);
         return ResponseEntity.created(null).body(true);
     }
-//
-//    @GetMapping("/option")
-//    public ResponseEntity<?> getOptionsByAdminId(@RequestParam int productId) {
-//        return ResponseEntity.ok(adminProductService.getOptionsByMenuId(productId));
-//    }
-//
-//    @PutMapping("/option")
-//    public ResponseEntity<?> updateOptionName(@RequestBody UpdateOptionNameReqDto updateOptionNameReqDto) {
-//        adminProductService.editOptionName(updateOptionNameReqDto);
-//        return ResponseEntity.ok(true);
-//    }
+
+    @GetMapping("/option")
+    public ResponseEntity<?> getOptionsByAdminId(@RequestParam int productId) {
+        return ResponseEntity.ok(productService.getOptionsByMenuId(productId));
+    }
+
+    @PutMapping("/option")
+    public ResponseEntity<?> updateOptionName(@RequestBody UpdateOptionNameReqDto updateOptionNameReqDto) {
+        productService.editOptionName(updateOptionNameReqDto);
+        return ResponseEntity.ok(true);
+    }
 
 }

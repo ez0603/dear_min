@@ -7,6 +7,7 @@ import com.project.dearMin.entity.product.Product;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Mapper
@@ -42,5 +43,15 @@ public interface ProductMapper {
     int updateOptionTitle(OptionTitle optionTitle);
 
     int deleteOptionTitle(OptionTitle optionTitle);
+
+    Product getProductById(int productId);
+
+    OptionName getOptionNameById(int optionNameId);
+
+    void updateProductCostPrice(@Param("productId") int productId, @Param("costPrice") int costPrice);
+
+    int updateOptionName(OptionName optionName);
+
+    List<OptionName> getOptionsByMenuId(@Param("productId") int productId);
 
 }

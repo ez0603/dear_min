@@ -89,14 +89,18 @@
 
     <update id="updateOptionName">
         update
-        option_name_tb
+            option_name_tb
         set
-        option_name = #{optionName},
-        update_date = now()
+            option_name = #{optionName},
+            option_price = #{optionPrice},
+            option_count = #{optionCount},
+            option_img = #{optionImg},
+            product_quantity = #{productQuantity},
+            update_date = now()
         where
-        option_name_id = #{optionNameId}
-        and option_title_id = #{optionTitleId}
-        and product_id = #{productId}
+            option_name_id = #{optionNameId}
+            and option_title_id = #{optionTitleId}
+            and product_id = #{productId}
     </update>
 
 </mapper>

@@ -157,4 +157,20 @@
         where
             pt.category_id = #{categoryId}
     </select>
+
+    <update id="updateProductCostPrice">
+        UPDATE product_tb
+        SET cost_price = #{costPrice}
+        WHERE product_id = #{productId}
+    </update>
+
+
+    <select id="getProductById" resultMap="ProductResultMap" parameterType="int">
+        SELECT * FROM product_tb WHERE product_id = #{productId}
+    </select>
+
+    <select id="getOptionNameById" resultMap="OptionNameResultMap" parameterType="int">
+        SELECT * FROM option_name_tb WHERE option_name_id = #{optionNameId}
+    </select>
+
 </mapper>

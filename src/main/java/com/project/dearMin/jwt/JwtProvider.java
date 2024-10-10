@@ -43,7 +43,7 @@ public class JwtProvider {
         Date expireDate = new Date(new Date().getTime() +( 1000 * 60 * 60 * 24 * 20));
 
         String accessToken = Jwts.builder()
-                .claim("adminId", adminId) //제이슨 형식으로 키밸류 들어감
+                .claim("adminId", adminId)
                 .claim("username", username)
                 .setExpiration(expireDate)
                 .signWith(key, SignatureAlgorithm.HS256)

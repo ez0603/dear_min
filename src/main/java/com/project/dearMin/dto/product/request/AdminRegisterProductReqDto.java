@@ -16,7 +16,6 @@ public class AdminRegisterProductReqDto {
     private String productImg;
     private int costPrice;
 
-
     private List<OptionTitle> optionTitles = new ArrayList<>();
     private List<OptionName> optionNames = new ArrayList<>();
 

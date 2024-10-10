@@ -10,6 +10,9 @@ public class UpdateOptionNameReqDto {
     private int optionTitleId;
     private String optionName;
     private int optionPrice;
+    private int optionCount;
+    private String optionImg;
+    private int productQuantity;
 
     public OptionName toEntity() {
         return OptionName.builder()
@@ -17,6 +20,10 @@ public class UpdateOptionNameReqDto {
                 .productId(productId)
                 .optionTitleId(optionTitleId)
                 .optionName(optionName)
+                .optionPrice(optionPrice)
+                .optionCount(optionCount)
+                .optionImg(optionImg)
+                .productQuantity(productQuantity)
                 .build();
     }
 }
