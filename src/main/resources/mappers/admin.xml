@@ -74,4 +74,13 @@
             and email = #{email}
     </select>
 
+    <update id="updateAdminAccountTemporaryPw">
+        update
+            admin_tb
+        set
+            password = #{tempPassword}
+        where
+            admin_id = #{adminId}
+    </update>
+
 </mapper>

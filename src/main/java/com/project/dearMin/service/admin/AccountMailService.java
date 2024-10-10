@@ -25,9 +25,9 @@ import java.util.concurrent.TimeUnit;
 public class AccountMailService {
 
     private static final long AUTH_CODE_EXPIRATION = 60 * 3L; // 3 minutes
-    private static final String AUTH_SUBJECT = "[Mandarin Shop] 계정 메일 인증";
+    private static final String AUTH_SUBJECT = "[DearMin] 계정 메일 인증";
     private static final String PASSWORD_RESET_SUBJECT = "임시 비밀번호 발급";
-    private static final String ACCOUNT_FIND_SUBJECT = "[Mandarin Shop] 계정 찾기";
+    private static final String ACCOUNT_FIND_SUBJECT = "[DearMin] 계정 찾기";
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -42,6 +42,7 @@ public class AccountMailService {
 
     private final Map<String, String> emailAuthCodeMap = new ConcurrentHashMap<>();
     private final Map<String, Long> emailAuthCodeExpiryMap = new ConcurrentHashMap<>();
+
     @Autowired
     private AdminMapper adminMapper;
 
@@ -80,7 +81,7 @@ public class AccountMailService {
 
     public boolean sendAuthMail(String email) {
         String authCode = createAuthCode();
-        String mailContent = "<div><h1>Mandarin Shop</h1><div><h3>인증번호는 " + authCode + "입니다</h3></div></div>";
+        String mailContent = "<div><h1>DearMin</h1><div><h3>인증번호는 " + authCode + "입니다</h3></div></div>";
         try {
             sendEmail(email, AUTH_SUBJECT, mailContent);
             emailAuthCodeMap.put(email, authCode);
@@ -95,8 +96,8 @@ public class AccountMailService {
         }
     }
 
-    public Admin findAccountAdminByNameAndEmail(String name, String email) {
-        return adminMapper.findAccountByNameAndEmail(name, email);
+    public Admin findAccountAdminByNameAndEmail(String adminName, String email) {
+        return adminMapper.findAccountByNameAndEmail(adminName, email);
     }
 
     public Map<String, String> verifyEmailCode(String email, String code) {
@@ -120,7 +121,7 @@ public class AccountMailService {
     public boolean searchAdminAccountByMail(Admin admin) {
         if (admin == null) return false;
 
-        String mailContent = "<div><h1>Mandarin Shop</h1><div><h3>귀하의 아이디는 " + admin.getAdminName() + "입니다</h3></div></div>";
+        String mailContent = "<div><h1>DearMin</h1><div><h3>귀하의 아이디는 " + admin.getAdminName() + "입니다</h3></div></div>";
         try {
             sendEmail(admin.getEmail(), ACCOUNT_FIND_SUBJECT, mailContent);
             return true;
@@ -142,11 +143,12 @@ public class AccountMailService {
 
         String temporaryPassword = generateTemporaryPassword();
         String encodedPassword = passwordEncoder.encode(temporaryPassword);
-        String mailContent = "<div><h1>Mandarin Shop</h1><div><p>안녕하세요, " + admin.getAdminName() + "님!</p>"
+        String mailContent = "<div><h1>DearMin</h1><div><p>안녕하세요, " + admin.getAdminName() + "님!</p>"
                 + "<p>임시 비밀번호는 다음과 같습니다: <strong>" + temporaryPassword + "</strong></p>"
                 + "<p>로그인 후에 비밀번호를 변경해주세요.</p></div></div>";
         try {
             sendEmail(admin.getEmail(), PASSWORD_RESET_SUBJECT, mailContent);
+            adminMapper.updateAdminAccountTemporaryPw(admin.getAdminId(), encodedPassword);
             return true;
         } catch (MessagingException e) {
             logger.error("Failed to send temporary password email", e);

@@ -16,4 +16,5 @@ public interface AdminMapper {
 
     public Admin findAccountByUserNameAndEmail(@Param("username") String username, @Param("email") String email);
 
+    public int updateAdminAccountTemporaryPw(@Param("adminId") int adminId, @Param("tempPassword") String tempPassword);
 }
