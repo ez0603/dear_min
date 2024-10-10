@@ -54,7 +54,7 @@
             admin_id = #{adminId}
     </update>
 
-    <select id="findAccountByNameAndEmail" resultMap="AdminResultMap">
+    <select id="findAccountByNameAndEmail" resultType="com.project.dearMin.entity.account.Admin">
         select
             *
         from
@@ -64,7 +64,7 @@
             and email = #{email}
     </select>
 
-    <select id="findAccountByUserNameAndEmail" resultMap="AdminResultMap">
+    <select id="findAccountByUserNameAndEmail" resultType="com.project.dearMin.entity.account.Admin">
         select
             *
         from

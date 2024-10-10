@@ -121,7 +121,7 @@ public class AccountMailService {
     public boolean searchAdminAccountByMail(Admin admin) {
         if (admin == null) return false;
 
-        String mailContent = "<div><h1>DearMin</h1><div><h3>귀하의 아이디는 " + admin.getAdminName() + "입니다</h3></div></div>";
+        String mailContent = "<div><h1>DearMin</h1><div><h3>귀하의 아이디는 " + admin.getUsername() + "입니다</h3></div></div>";
         try {
             sendEmail(admin.getEmail(), ACCOUNT_FIND_SUBJECT, mailContent);
             return true;
