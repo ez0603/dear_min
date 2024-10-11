@@ -41,12 +41,10 @@ public class AdminAccountService {
             throw new ValidException(Map.of("newPassword", "이전 비밀번호와 동일한 비밀번호는 사용하실 수 없습니다.\n다시 입력해주세요."));
         }
 
-        // 비밀번호 업데이트
         admin.setPassword(passwordEncoder.encode(editPasswordReqDto.getNewPassword()));
-        adminMapper.modifyPassword(admin); // 실제 데이터베이스에 업데이트하는 코드
+        adminMapper.modifyPassword(admin);
 
-        // 세션 무효화 또는 재인증 처리
-        SecurityContextHolder.clearContext(); // 현재 세션을 무효화합니다.
+        SecurityContextHolder.clearContext();
     }
 
     public String findAccountByNameAndEmail(String adminName, String email) {

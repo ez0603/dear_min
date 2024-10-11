@@ -26,7 +26,7 @@ public class AccountMailService {
 
     private static final long AUTH_CODE_EXPIRATION = 60 * 3L; // 3 minutes
     private static final String AUTH_SUBJECT = "[DearMin] 계정 메일 인증";
-    private static final String PASSWORD_RESET_SUBJECT = "임시 비밀번호 발급";
+    private static final String PASSWORD_RESET_SUBJECT = "[DearMin] 임시 비밀번호 발급";
     private static final String ACCOUNT_FIND_SUBJECT = "[DearMin] 계정 찾기";
 
     @Autowired
@@ -143,8 +143,8 @@ public class AccountMailService {
 
         String temporaryPassword = generateTemporaryPassword();
         String encodedPassword = passwordEncoder.encode(temporaryPassword);
-        String mailContent = "<div><h1>DearMin</h1><div><p>안녕하세요, " + admin.getAdminName() + "님!</p>"
-                + "<p>임시 비밀번호는 다음과 같습니다: <strong>" + temporaryPassword + "</strong></p>"
+        String mailContent = "<p>안녕하세요, " + admin.getUsername() + "님!</p>"
+                + "<p>임시 비밀번호는 <strong>" + temporaryPassword + "</strong> 입니다.</p>"
                 + "<p>로그인 후에 비밀번호를 변경해주세요.</p></div></div>";
         try {
             sendEmail(admin.getEmail(), PASSWORD_RESET_SUBJECT, mailContent);

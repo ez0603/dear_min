@@ -51,15 +51,12 @@ public class AccountMailController {
     public ResponseEntity<?> send(HttpServletRequest request, @RequestBody AdminSearchUserNameReqDto adminSearchUserNameReqDto) {
         request.getSession().setAttribute("timer", new Date());
 
-        // 이름과 이메일로 관리자 정보 찾기
         Admin admin = accountMailService.findAccountAdminByNameAndEmail(adminSearchUserNameReqDto.getAdminName(), adminSearchUserNameReqDto.getEmail());
 
-        // 관리자가 없는 경우 에러 반환
         if (admin == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("일치하는 회원정보가 없습니다.");
         }
 
-        // 일치하는 회원이 있을 경우에만 메일 발송
         boolean isMailSent = accountMailService.searchAdminAccountByMail(admin);
 
         if (isMailSent) {
@@ -75,15 +72,22 @@ public class AccountMailController {
     @PostMapping("/send/temporary/admin/password")
     public ResponseEntity<?> sendAdminTemporaryPassword(HttpServletRequest request, @RequestBody AdminFindPasswordReqDto adminFindPasswordReqDto) {
         request.getSession().setAttribute("timer", new Date());
-        Admin admin = accountMailService.findAccountByAdminNameAndEmail(adminFindPasswordReqDto.getUsername(), adminFindPasswordReqDto.getEmail());
-        if(admin == null) {
-            throw new UsernameNotFoundException("일치하는 회원정보가 없습니다.");
+
+        Admin admin;
+        try {
+            admin = accountMailService.findAccountByAdminNameAndEmail(adminFindPasswordReqDto.getUsername(), adminFindPasswordReqDto.getEmail());
+            if (admin == null) {
+                throw new UsernameNotFoundException("일치하는 회원정보가 없습니다.");
+            }
+        } catch (UsernameNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("일치하는 회원정보가 없습니다.");
         }
 
-        if (admin != null && accountMailService.sendTemporaryAdminPassword(admin)) {
+        if (accountMailService.sendTemporaryAdminPassword(admin)) {
             return ResponseEntity.ok("임시 비밀번호가 성공적으로 전송되었습니다.");
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("임시 비밀번호 전송에 실패했습니다.");
         }
     }
+
 }
