@@ -12,6 +12,7 @@
         <result property="productPrice" column="product_price"/>
         <result property="productImg" column="product_img" />
         <result property="costPrice" column="cost_price" />
+        <result property="productCount" column="product_count" />
         <result property="optionTitleId" column="option_title_id"/>
         <result property="titleName" column="title_name"/>
         <result property="optionNameId" column="option_name_id"/>
@@ -23,6 +24,7 @@
     <resultMap id="CategoryResultMap" type="com.project.dearMin.entity.product.Category">
         <id property="categoryId" column="category_id" />
         <result property="categoryName" column="category_name" />
+        <result property="categoryImg" column="category_img" />
     </resultMap>
 
     <insert id="saveProduct" parameterType="com.project.dearMin.entity.product.Product" useGeneratedKeys="true" keyProperty="productId">
@@ -34,6 +36,7 @@
             #{productPrice},
             #{productImg},
             #{costPrice},
+            #{productCount},
             now(),
             now()
         )
@@ -46,6 +49,7 @@
             pt.product_price,
             pt.product_img,
             pt.cost_price,
+            pt.product_count,
             ct.category_id,
             ct.category_name,
             ott.title_name,
@@ -70,6 +74,7 @@
             product_price = #{productPrice},
             product_img = #{productImg},
             cost_price = #{costPrice},
+            product_count = #{productCount},
             category_id = #{categoryId},
             update_date = now()
         where
@@ -91,6 +96,7 @@
             pt.product_price,
             pt.product_img,
             pt.cost_price,
+            pt.product_count,
             pt.category_id,
             ct.category_name,
             ott.title_name,
@@ -112,7 +118,7 @@
         insert into
         category_tb
         values
-        (0, #{categoryName}, now(), now())
+        (0, #{categoryName}, #{categoryImg}, now(), now())
     </insert>
 
     <select id="getCategory" resultMap="CategoryResultMap">
@@ -127,6 +133,7 @@
             category_tb
         set
             category_name = #{categoryName},
+            category_img = #{categoryImg},
             update_date = now()
         where
             category_id = #{categoryId}
@@ -146,8 +153,10 @@
             pt.product_price,
             pt.product_img,
             pt.cost_price,
+            pt.product_count,
             ct.category_id,
-            ct.category_name
+            ct.category_name,
+            ct.category_img
         FROM
             product_tb pt
             LEFT OUTER JOIN

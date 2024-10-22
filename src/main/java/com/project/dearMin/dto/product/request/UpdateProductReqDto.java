@@ -12,6 +12,7 @@ public class UpdateProductReqDto {
     private int productPrice;
     private String productImg;
     private int costPrice;
+    private int productCount;
 
     public Product toEntity() {
         return Product.builder()
@@ -22,7 +23,9 @@ public class UpdateProductReqDto {
                 .productPrice(productPrice)
                 .productImg(productImg)
                 .costPrice(costPrice)
+                .productCount(productCount)
                 .build();
     }
+
 
 }

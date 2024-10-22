@@ -138,6 +138,7 @@ public class ProductService {
                 .productPrice(product.getProductPrice())
                 .productImg(product.getProductImg())
                 .costPrice(product.getCostPrice())
+                .productCount(product.getProductCount())
                 .createDate(product.getCreateDate())
                 .updateDate(product.getUpdateDate())
                 .optionTitles(new ArrayList<>(optionTitleMap.values()))

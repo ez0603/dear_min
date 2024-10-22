@@ -13,6 +13,7 @@ public class SearchProductRespDto {
     private int productPrice;
     private String productImg;
     private int costPrice;
+    private int productCount;
     private int optionTitleId;
     private String titleName;
     private int optionNameId;

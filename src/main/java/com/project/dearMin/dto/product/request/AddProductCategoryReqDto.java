@@ -7,11 +7,13 @@ import lombok.Data;
 public class AddProductCategoryReqDto {
     private int categoryId;
     private String categoryName;
+    private String categoryImg;
 
     public Category toEntity() {
         return Category.builder()
                 .categoryId(categoryId)
                 .categoryName(categoryName)
+                .categoryImg(categoryImg)
                 .build();
     }
 }

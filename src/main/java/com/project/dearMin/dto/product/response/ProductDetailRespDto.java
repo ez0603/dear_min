@@ -20,6 +20,7 @@ public class ProductDetailRespDto {
     private int productPrice;
     private String productImg;
     private int costPrice;
+    private int productCount;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
     private List<OptionTitleDetail> optionTitles;

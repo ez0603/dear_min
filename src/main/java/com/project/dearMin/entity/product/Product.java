@@ -20,6 +20,7 @@ public class Product {
     private int productPrice;
     private String productImg;
     private int costPrice;
+    private int productCount;
     private int optionTitleId;
     private String titleName;
     private int optionNameId;
@@ -35,6 +36,7 @@ public class Product {
                 .productPrice(productPrice)
                 .productImg(productImg)
                 .costPrice(costPrice)
+                .productCount(productCount)
                 .categoryName(categoryName)
                 .optionTitleId(optionTitleId)
                 .titleName(titleName)
