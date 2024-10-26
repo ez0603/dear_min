@@ -46,6 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/send/**",
                         "/account/**",
                         "/public/**",
+                        "/createUser",
                         "/admin/auth/signup", "/admin/auth/signin")
                 .permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")

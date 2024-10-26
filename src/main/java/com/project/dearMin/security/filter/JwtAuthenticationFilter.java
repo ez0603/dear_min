@@ -27,7 +27,8 @@ public class JwtAuthenticationFilter extends GenericFilter {
         if (requestURI.startsWith("/admin/auth/signup") ||
                 requestURI.startsWith("/admin/auth/signin") ||
                 requestURI.startsWith("/account/") ||
-                requestURI.startsWith("/mail/")) {
+                requestURI.startsWith("/mail/") ||
+            requestURI.startsWith("/createUser")) {
             // 회원가입 및 로그인 요청은 필터링하지 않고 통과
             filterChain.doFilter(request, response);
             return;
