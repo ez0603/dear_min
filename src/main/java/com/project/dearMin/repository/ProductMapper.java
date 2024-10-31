@@ -1,9 +1,6 @@
 package com.project.dearMin.repository;
 
-import com.project.dearMin.entity.product.Category;
-import com.project.dearMin.entity.product.OptionName;
-import com.project.dearMin.entity.product.OptionTitle;
-import com.project.dearMin.entity.product.Product;
+import com.project.dearMin.entity.product.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -52,6 +49,11 @@ public interface ProductMapper {
 
     int updateOptionName(OptionName optionName);
 
-    List<OptionName> getOptionsByMenuId(@Param("productId") int productId);
+    List<OptionName> getOptionsByOptionTitleId(int optionTitleId);
 
+    public int saveProductMaterial(ProductMaterial productMaterial);
+
+    int getMaterialPriceById(@Param("productMaterialId") int productMaterialId);
+
+    int getOptionPriceById(int optionNameId);
 }

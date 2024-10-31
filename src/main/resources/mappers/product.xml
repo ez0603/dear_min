@@ -27,6 +27,13 @@
         <result property="categoryImg" column="category_img" />
     </resultMap>
 
+    <resultMap id="ProductMaterialMap" type="com.project.dearMin.entity.product.ProductMaterial">
+        <id property="productMaterialId" column="product_material_id" />
+        <result property="productId" column="product_id" />
+        <result property="optionNameId" column="option_name_id" />
+        <result property="productQuantity" column="product_quantity" />
+    </resultMap>
+
     <insert id="saveProduct" parameterType="com.project.dearMin.entity.product.Product" useGeneratedKeys="true" keyProperty="productId">
         insert into product_tb
         values(
@@ -181,5 +188,30 @@
     <select id="getOptionNameById" resultMap="OptionNameResultMap" parameterType="int">
         SELECT * FROM option_name_tb WHERE option_name_id = #{optionNameId}
     </select>
+
+    <insert id="saveProductMaterial" parameterType="com.project.dearMin.entity.product.ProductMaterial">
+        insert into product_material_tb
+        values(
+        0,
+        #{productId},
+        #{optionNameId},
+        #{productQuantity},
+        now(),
+        now()
+        )
+    </insert>
+
+    <select id="getMaterialPriceById" parameterType="int" resultType="int">
+        SELECT product_material_tb
+        FROM *
+        WHERE product_material_id = #{productMaterialId}
+    </select>
+
+    <select id="getOptionPriceById" parameterType="int" resultType="int">
+        SELECT option_price
+        FROM option_name_tb
+        WHERE option_name_id = #{optionNameId}
+    </select>
+
 
 </mapper>

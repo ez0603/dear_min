@@ -18,4 +18,7 @@ public class OptionsRespDto {
 
     private List<Integer> optionNameIds;
     private List<String> optionNames;
+
+    private List<Integer> optionPrices;
+    private List<Integer> optionCounts;
 }

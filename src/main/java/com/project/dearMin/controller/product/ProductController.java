@@ -16,7 +16,7 @@ public class ProductController {
     @PostMapping("/products")
     public ResponseEntity<?> registerProduct(@RequestBody AdminRegisterProductReqDto adminRegisterProductReqDto) {
         productService.saveProduct(adminRegisterProductReqDto);
-        return ResponseEntity.ok("Product and inventory saved successfully");
+        return ResponseEntity.created(null).body(true);
     }
 
     @PutMapping("/products")
@@ -103,8 +103,8 @@ public class ProductController {
     }
 
     @GetMapping("/option")
-    public ResponseEntity<?> getOptionsByAdminId(@RequestParam int productId) {
-        return ResponseEntity.ok(productService.getOptionsByMenuId(productId));
+    public ResponseEntity<?> getOptionsByAdminId(@RequestParam int optionTitleId) {
+        return ResponseEntity.ok(productService.getOptionsByOptionTitleId(optionTitleId));
     }
 
     @PutMapping("/option")
@@ -113,4 +113,9 @@ public class ProductController {
         return ResponseEntity.ok(true);
     }
 
+    @PostMapping("/material")
+    public ResponseEntity<String> addProductMaterial(@RequestBody ProductMaterialReqDto productMaterialReqDto) {
+        productService.addProductMaterial(productMaterialReqDto);
+        return ResponseEntity.ok("Product material added successfully.");
+    }
 }

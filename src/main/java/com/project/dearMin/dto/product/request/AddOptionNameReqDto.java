@@ -21,7 +21,6 @@ public class AddOptionNameReqDto {
                 .optionPrice(optionPrice)
                 .optionCount(optionCount)
                 .optionImg(optionImg)
-                .productQuantity(productQuantity)
                 .build();
     }
 }

@@ -15,9 +15,12 @@ public class AdminRegisterProductReqDto {
     private int productPrice;
     private String productImg;
     private int costPrice;
+    private int productCount;
 
     private List<OptionTitle> optionTitles = new ArrayList<>();
     private List<OptionName> optionNames = new ArrayList<>();
+
+    private List<ProductMaterialReqDto> productMaterials;
 
     public Product toEntity() {
         return Product.builder()
@@ -26,6 +29,7 @@ public class AdminRegisterProductReqDto {
                 .productPrice(productPrice)
                 .productImg(productImg)
                 .costPrice(costPrice)
+                .productCount(productCount)
                 .build();
     }
 

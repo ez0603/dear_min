@@ -23,7 +23,6 @@ public class UpdateOptionNameReqDto {
                 .optionPrice(optionPrice)
                 .optionCount(optionCount)
                 .optionImg(optionImg)
-                .productQuantity(productQuantity)
                 .build();
     }
 }

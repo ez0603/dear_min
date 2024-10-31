@@ -19,7 +19,6 @@
         <result property="optionPrice" column="option_price" />
         <result property="optionCount" column="option_count" />
         <result property="optionImg" column="option_img" />
-        <result property="productQuantity" column="product_quantity" />
         <result property="createDate" column="create_date" />
         <result property="updateDate" column="update_date" />
         <association property="optionTitle" resultMap="OptionTitleResultMap" />
@@ -70,22 +69,25 @@
         insert into
             option_name_tb
         values
-            (0,  #{productId}, #{optionTitleId}, #{optionName}, #{optionPrice}, #{optionCount}, #{optionImg}, #{productQuantity}, now(), now())
+            (0,  #{productId}, #{optionTitleId}, #{optionName}, #{optionPrice}, #{optionCount}, #{optionImg}, now(), now())
     </insert>
 
-    <select id="getOptionsByMenuId" resultMap="OptionNameResultMap">
-        select
-        ont.product_id,
+    <select id="getOptionsByOptionTitleId" parameterType="int" resultMap="OptionNameResultMap">
+        SELECT
         ott.option_title_id,
         ott.title_name,
         ont.option_name_id,
-        ont.option_name
-        from
+        ont.option_name,
+        ont.option_price,
+        ont.option_count
+        FROM
         option_name_tb ont
-        left outer join option_title_tb ott on(ott.option_title_id = ont.option_title_id)
-        where
-        ont.product_id = #{productId}
+        LEFT OUTER JOIN
+        option_title_tb ott ON ott.option_title_id = ont.option_title_id
+        WHERE
+        ott.option_title_id = #{optionTitleId}
     </select>
+
 
     <update id="updateOptionName">
         update
@@ -95,7 +97,6 @@
             option_price = #{optionPrice},
             option_count = #{optionCount},
             option_img = #{optionImg},
-            product_quantity = #{productQuantity},
             update_date = now()
         where
             option_name_id = #{optionNameId}
