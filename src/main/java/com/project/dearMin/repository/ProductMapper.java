@@ -56,4 +56,6 @@ public interface ProductMapper {
     int getMaterialPriceById(@Param("productMaterialId") int productMaterialId);
 
     int getOptionPriceById(int optionNameId);
+
+    void deleteProductMaterials(@Param("productId") int productId);
 }

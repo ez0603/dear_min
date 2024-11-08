@@ -124,4 +124,18 @@ public class ProductController {
         );
         return ResponseEntity.created(null).body(Collections.singletonMap("productId", productId));
     }
+
+    @PutMapping("/material")
+    public ResponseEntity<?> updateProductWithMaterials(
+            @RequestParam int productId,
+            @RequestBody ProductWithMaterialsReqDto productWithMaterialsReqDto) {
+        productService.updateProductMaterial(
+                productId,
+                productWithMaterialsReqDto.getProductReqDto(),
+                productWithMaterialsReqDto.getOptionNameIds(),
+                productWithMaterialsReqDto.getProductQuantities()
+        );
+        return ResponseEntity.ok(Collections.singletonMap("message", "Product updated successfully"));
+    }
+
 }

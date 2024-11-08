@@ -213,5 +213,9 @@
         WHERE option_name_id = #{optionNameId}
     </select>
 
+    <delete id="deleteProductMaterials" parameterType="int">
+        DELETE FROM product_material_tb WHERE product_id = #{productId}
+    </delete>
+
 
 </mapper>
