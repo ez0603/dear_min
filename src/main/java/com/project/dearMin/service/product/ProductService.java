@@ -224,14 +224,32 @@ public class ProductService {
     }
 
 
-    @Transactional(rollbackFor = Exception.class)
-    public void addProductMaterial(ProductMaterialReqDto productMaterialReqDto) {
-        ProductMaterial productMaterial = new ProductMaterial();
-        productMaterial.setProductId(productMaterialReqDto.getProductId());
-        productMaterial.setOptionNameId(productMaterialReqDto.getOptionNameId());
-        productMaterial.setProductQuantity(productMaterialReqDto.getProductQuantity());
+//    @Transactional(rollbackFor = Exception.class)
+//    public void addProductMaterial(ProductMaterialReqDto productMaterialReqDto) {
+//
+//        ProductMaterial productMaterial = new ProductMaterial();
+//        productMaterial.setProductId(productMaterialReqDto.getProductId());
+//        productMaterial.setOptionNameId(productMaterialReqDto.getOptionNameId());
+//
+//        productMapper.saveProductMaterial(productMaterial);
+//    }
 
-        productMapper.saveProductMaterial(productMaterial);
+    @Transactional(rollbackFor = Exception.class)
+    public int addProductMaterial(AdminRegisterProductReqDto productReqDto, List<Integer> optionNameIds, List<Integer> productQuantities) {
+
+        Product product = productReqDto.toEntity();
+        productMapper.saveProduct(product);
+        int productId = product.getProductId();
+
+        for (int i = 0; i < optionNameIds.size(); i++) {
+            ProductMaterial productMaterial = new ProductMaterial();
+            productMaterial.setProductId(productId);
+            productMaterial.setOptionNameId(optionNameIds.get(i));
+            productMaterial.setProductQuantity(productQuantities.get(i));
+            productMapper.saveProductMaterial(productMaterial);
+        }
+        return productId;
     }
+
 
 }

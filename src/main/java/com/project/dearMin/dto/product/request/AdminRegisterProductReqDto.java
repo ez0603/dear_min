@@ -32,15 +32,4 @@ public class AdminRegisterProductReqDto {
                 .productCount(productCount)
                 .build();
     }
-
-
-
-//    public List<OptionTitle> getOptionTitles() {
-//        return optionTitles;
-//    }
-//
-//    // 옵션 이름 리스트를 반환하는 메서드
-//    public List<OptionName> getOptionNames() {
-//        return optionNames;
-//    }
 }

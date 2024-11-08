@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+
 @RestController
 @RequestMapping("/product")
 public class ProductController {
@@ -114,8 +116,12 @@ public class ProductController {
     }
 
     @PostMapping("/material")
-    public ResponseEntity<String> addProductMaterial(@RequestBody ProductMaterialReqDto productMaterialReqDto) {
-        productService.addProductMaterial(productMaterialReqDto);
-        return ResponseEntity.ok("Product material added successfully.");
+    public ResponseEntity<?> addProductWithMaterials(@RequestBody ProductWithMaterialsReqDto productWithMaterialsReqDto) {
+        int productId = productService.addProductMaterial(
+                productWithMaterialsReqDto.getProductReqDto(),
+                productWithMaterialsReqDto.getOptionNameIds(),
+                productWithMaterialsReqDto.getProductQuantities()
+        );
+        return ResponseEntity.created(null).body(Collections.singletonMap("productId", productId));
     }
 }
