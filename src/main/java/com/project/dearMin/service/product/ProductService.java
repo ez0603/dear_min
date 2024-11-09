@@ -251,18 +251,19 @@ public class ProductService {
         return productId;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public void updateProductMaterial(int productId, AdminRegisterProductReqDto productReqDto, List<Integer> optionNameIds, List<Integer> productQuantities) {
         Product product = productReqDto.toEntity();
         product.setProductId(productId);
-        productMapper.updateProduct(product); // 제품 기본 정보 업데이트
+        productMapper.updateProduct(product);
 
-        productMapper.deleteProductMaterials(productId); // 기존 옵션 삭제
+        productMapper.deleteProductMaterials(productId);
         for (int i = 0; i < optionNameIds.size(); i++) {
             ProductMaterial productMaterial = new ProductMaterial();
             productMaterial.setProductId(productId);
             productMaterial.setOptionNameId(optionNameIds.get(i));
             productMaterial.setProductQuantity(productQuantities.get(i));
-            productMapper.saveProductMaterial(productMaterial); // 새로운 옵션 정보 저장
+            productMapper.saveProductMaterial(productMaterial);
         }
     }
 

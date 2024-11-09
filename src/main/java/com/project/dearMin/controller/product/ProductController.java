@@ -129,6 +129,7 @@ public class ProductController {
     public ResponseEntity<?> updateProductWithMaterials(
             @RequestParam int productId,
             @RequestBody ProductWithMaterialsReqDto productWithMaterialsReqDto) {
+
         productService.updateProductMaterial(
                 productId,
                 productWithMaterialsReqDto.getProductReqDto(),
